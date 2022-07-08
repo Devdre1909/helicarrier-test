@@ -1,0 +1,17 @@
+{
+  "name": "helicarrier",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "yarn:install": "cd gql-server && yarn && cd .. && cd client && yarn",
+    "npm:install": "cd gql-server && npm install && cd .. && cd client && npm install",
+    "start:server": "cd gql-server && yarn serve",
+    "start:client": "cd client && yarn dev",
+    "dev": "concurrently \"yarn start:server\" \"yarn start:client\""
+  },
+  "author": "Adegoke Temitope",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^7.2.2"
+  }
+}
