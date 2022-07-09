@@ -1,10 +1,39 @@
-# Helcarrier: Engineering Test
+# Helicarrier: Engineering Test
 
 This is the solution to the given Engineering test, the project contains to parts the [gql-server](gql-server) to acts as a server for the client side, it uses [json-graphql-server](https://www.npmjs.com/package/json-graphql-server). I choose to use this because other free solutions I could get online doesn't allow me use my data of choice.
 
 The other part is the [client](client/) folder that contains a react-ts app created with [vite](https://vitejs.dev/).
 
+## Set up
+  * Clone the project
+  * run `yarn:install` if using yarn or `npm:install` if using npm
+  * run `yarn:dev` if using yarn or `npm:dev` if using npm
+
 ## Data
 
 I used [JSON generator](https://json-generator.com/) to generate the data with the below json:
+
+```
+[
+  '{{repeat(50, 70)}}',
+  {
+    id: '{{objectId()}}',
+    guid: '{{guid()}}',
+    status: '{{bool()}}',
+    amount: '{{floating(1000, 4000, 2, "$0,0.00")}}',
+    accountName: function (tags) {
+      var names = ["Marshall Tucker", "Baker Espinoza", "Cynthia Harrell", "Tyson Wells", "Evangeline Ortega", "Desiree Watkins"];
+      return names[tags.integer(0, names.length - 1)];
+    },
+    transferTo: '{{company().toUpperCase()}}',
+    type:  function (tags) {
+      var types = ['credit', 'debit'];
+      return types[tags.integer(0, types.length - 1)];
+    },
+    descriptions: '{{lorem(1, "paragraphs")}}',
+    transactionOn: '{{date(new Date(2022, 0, 1), new Date(2022, 0, 7), "YYYY-MM-ddThh:mm:ss Z")}}'
+  }
+]
+```
+then used [this script](gql-server/script.js) to format, i fell it make sense that `accountName` and `accountNumber` etc are same across transactions, also the `transactionOn` is a week range.
 
