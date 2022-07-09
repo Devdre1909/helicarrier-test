@@ -48,3 +48,26 @@ export function searchTransactions(
 
   return trxCopy;
 }
+
+
+export function filterTransactions(
+  transactions: TransactionDate[],
+  filters: any,
+): TransactionDate[] {
+  if (!filters) return transactions;
+
+  const trxCopy: TransactionDate[] = JSON.parse(JSON.stringify(transactions));
+
+  trxCopy.forEach((trx) => {
+    trx.transactions = trx.transactions.filter((tx) => {
+      return Object.keys(filters).every((key) => {
+        return tx[key as keyof Transaction]
+          .toString()
+          .toLowerCase()
+          .includes(filters[key].toLowerCase());
+      });
+    });
+  });
+
+  return trxCopy;
+}

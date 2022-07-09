@@ -3,9 +3,13 @@ import "./App.css";
 // import {getUniqueDate} from './utils/helpers.js'
 import { useGetTransactions } from "./services/gql/hooks/transactions";
 import { Transaction, TransactionDate } from "./interfaces/Transaction";
-import { formatTrx, searchTransactions } from "./utils/helpers";
+import {
+  filterTransactions,
+  formatTrx,
+  searchTransactions,
+} from "./utils/helpers";
 
-const filterable = [
+const searchable = [
   "amount",
   "accountName",
   "transferTo",
@@ -16,10 +20,44 @@ const filterable = [
   "accountNumber",
 ];
 
+const filterable = [
+  {
+    name: "Amount",
+    key: "amount",
+    type: "text",
+  },
+  {
+    name: "Account Number",
+    key: "accountNumber",
+    type: "number",
+  },
+  {
+    name: "Transfer To",
+    key: "transferTo",
+    type: "text",
+  },
+  {
+    name: "Gender",
+    key: "gender",
+    type: "select",
+    options: [
+      {
+        title: "Male",
+        value: "male",
+      },
+      {
+        title: "Female",
+        value: "female",
+      },
+    ],
+  },
+];
+
 function App() {
   const searchId = useId();
   const { transactions, loading, error } = useGetTransactions();
   const [search, setSearch] = useState("");
+  const [filters, setFilter] = useState<{}|any>({});
 
   const [transactionByDate, setTransactionByDate] = useState<TransactionDate[]>(
     []
@@ -36,12 +74,28 @@ function App() {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
+    setFilter({});
     const trx = searchTransactions(
       transactionByDate,
-      filterable,
+      searchable,
       e.target.value
     );
     setSearchedTransactions(trx);
+  };
+
+  const filterTrx = () => {
+    setSearch("");
+    const trx = filterTransactions(transactionByDate, filters);
+    setSearchedTransactions(trx);
+  };
+
+  const handleFilterChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFilter((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   useEffect(() => {
@@ -71,8 +125,33 @@ function App() {
         />
       </div>
       <div className="filters-container">
-        <div className="filter">Status</div>
-        <div className="filter">Type</div>
+        <div className="filters-wrapper">
+          {filterable.map((filter) => (
+            <>
+              <label className="filter">
+                {filter.name}
+                {(filter.type === "text" || filter.type === "number") && (
+                  <input
+                    type={filter.type}
+                    name={filter.key}
+                    value={filters[filter.key]}
+                    onChange={handleFilterChange}
+                  />
+                )}
+                {filter.type === "select" && (
+                  <select name={filter.key} onChange={handleFilterChange}>
+                    {filter.options?.map((value) => (
+                      <option value={value.value}>{value.title}</option>
+                    ))}
+                  </select>
+                )}
+              </label>
+            </>
+          ))}
+        </div>
+        <div className="filter-action">
+          <button onClick={filterTrx}>Filter</button>
+        </div>
       </div>
       <div className="transaction-list">
         {searchedTransactions.map((transactionObj) => (
