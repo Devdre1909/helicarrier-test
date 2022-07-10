@@ -2,62 +2,19 @@ import React, { useState, useId, useEffect, useCallback } from "react";
 import "./App.css";
 // import {getUniqueDate} from './utils/helpers.js'
 import { useGetTransactions } from "./services/gql/hooks/transactions";
-import { Transaction, TransactionDate } from "./interfaces/Transaction";
+import { TransactionDate } from "./interfaces/Transaction";
 import {
   filterTransactions,
   formatTrx,
   searchTransactions,
 } from "./utils/helpers";
-
-const searchable = [
-  "amount",
-  "accountName",
-  "transferTo",
-  "type",
-  "descriptions",
-  "transactionOn",
-  "email",
-  "accountNumber",
-];
-
-const filterable = [
-  {
-    name: "Amount",
-    key: "amount",
-    type: "text",
-  },
-  {
-    name: "Account Number",
-    key: "accountNumber",
-    type: "number",
-  },
-  {
-    name: "Transfer To",
-    key: "transferTo",
-    type: "text",
-  },
-  {
-    name: "Gender",
-    key: "gender",
-    type: "select",
-    options: [
-      {
-        title: "Male",
-        value: "male",
-      },
-      {
-        title: "Female",
-        value: "female",
-      },
-    ],
-  },
-];
+import { searchable, filterable } from "./utils/constant";
 
 function App() {
   const searchId = useId();
   const { transactions, loading, error } = useGetTransactions();
   const [search, setSearch] = useState("");
-  const [filters, setFilter] = useState<{}|any>({});
+  const [filters, setFilter] = useState<{} | any>({});
 
   const [transactionByDate, setTransactionByDate] = useState<TransactionDate[]>(
     []
