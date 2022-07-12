@@ -4,6 +4,11 @@ This is the solution to the given Engineering test, the project contains two par
 
 The other part is the [client](client/) folder that contains a react-ts app created with [vite](https://vitejs.dev/).
 
+## Production URI
+
+[GQL Server](http://localhost:3002/)
+[GQL Server](http://localhost:3002/)
+
 ## Set up
   * Clone the project
   * run `yarn:install` if using yarn or `npm:install` if using npm

@@ -57,7 +57,7 @@ function App() {
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setFilter((prev) => ({
+    setFilter((prev: any) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
