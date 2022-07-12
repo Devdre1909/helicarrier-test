@@ -6,8 +6,8 @@ The other part is the [client](client/) folder that contains a react-ts app crea
 
 ## Production URI
 
-[GQL Server](http://localhost:3002/)
-[GQL Server](http://localhost:3002/)
+[GQL Server](https://mfbqc6-3002.sse.codesandbox.io/)
+[Client](https://peaceful-klepon-fce224.netlify.app/)
 
 ## Set up
   * Clone the project
