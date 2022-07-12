@@ -6,6 +6,10 @@ The other part is the [client](client/) folder that contains a react-ts app crea
 
 ## Production URI
 
+```
+The GQL server is hosted on Codesandbox and it's hibernates, kindly click on the link if the frontend data isn't loading.
+```
+
 [GQL Server](https://mfbqc6-3002.sse.codesandbox.io/)
 [Client](https://peaceful-klepon-fce224.netlify.app/)
 

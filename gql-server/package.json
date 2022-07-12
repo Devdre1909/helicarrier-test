@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "serve": "node script && json-graphql-server graphql-server.js",
-    "serve:dev": "node script && json-graphql-server graphql-server.js --p 3002"
+    "serve": "node script && json-graphql-server graphql-server.js --p 3002"
   },
   "dependencies": {
     "json-graphql-server": "^2.3.1"
