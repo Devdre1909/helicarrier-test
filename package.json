@@ -8,15 +8,13 @@
     "start:server": "cd gql-server && yarn serve",
     "start:client": "cd client && yarn dev",
     "yarn:dev": "concurrently \"yarn start:server\" \"yarn start:client\"",
-    "npm:dev": "concurrently \"npm run start:server\" \"npm run start:client\""
+    "npm:dev": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start": "cd gql-server && yarn && yarn serve"
   },
   "author": "Adegoke Temitope",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^7.2.2"
   },
-  "dependencies": {
-    "@apollo/client": "^3.6.9",
-    "graphql": "^16.5.0"
-  }
+  "dependencies": {}
 }
