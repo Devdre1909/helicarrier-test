@@ -64,3 +64,7 @@ The data given from the graphql server is an array of transactions, then the dat
 To make the search easily extensible, [data in constant](client/src/utils/constant.ts) was created to choose what can be searched through. E.g If the data changes to include `transactionMadeWith` which determines if the transaction was made by transfer or card, it becomes very easy to make it searchable by adding it to the `searchable` export.
 
 Same concepts works for the filters but a filter can take options and the type of input to be rendered, that way more filters can be added without needing to touch the code.
+
+### NB;
+
+While **filter** uses a form of *AND conditional checking* and the values has to fully match e.g filtering `accountNumber` by 3112 won't show any match because it checks for full match, unlike **search**. That will also mean if ``male`` is searched ``female`` will show up since there is ``male`` in ``female``.
