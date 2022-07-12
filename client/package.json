@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "@apollo/client": "^3.6.9",
+    "graphql": "^16.5.0"
   },
   "devDependencies": {
     "@types/node": "^18.0.3",
