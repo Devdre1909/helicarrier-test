@@ -11,6 +11,7 @@ The GQL server is hosted on Codesandbox and it's hibernates, kindly click on the
 ```
 
 [GQL Server](https://mfbqc6-3002.sse.codesandbox.io/)
+<br />
 [Client](https://peaceful-klepon-fce224.netlify.app/)
 
 ## Set up
