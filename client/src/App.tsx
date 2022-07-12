@@ -1,26 +1,34 @@
 import React, { useState, useId, useEffect, useCallback } from "react";
-import "./App.css";
-// import {getUniqueDate} from './utils/helpers.js'
 import { useGetTransactions } from "./services/gql/hooks/transactions";
-import { TransactionDate } from "./interfaces/Transaction";
+import { ITransactionDate } from "./interfaces/Transaction";
 import {
   filterTransactions,
   formatTrx,
   searchTransactions,
 } from "./utils/helpers";
 import { searchable, filterable } from "./utils/constant";
+import Status from "./components/Status";
+
+import "./App.css";
+import Transaction from "./components/Transaction";
+
+const filterableObject: any = {};
+
+filterable.forEach((filter) => {
+  filterableObject[filter.key] = "";
+});
 
 function App() {
   const searchId = useId();
   const { transactions, loading, error } = useGetTransactions();
   const [search, setSearch] = useState("");
-  const [filters, setFilter] = useState<{} | any>({});
+  const [filters, setFilter] = useState<{} | any>(filterableObject);
 
-  const [transactionByDate, setTransactionByDate] = useState<TransactionDate[]>(
-    []
-  );
+  const [transactionByDate, setTransactionByDate] = useState<
+    ITransactionDate[]
+  >([]);
   const [searchedTransactions, setSearchedTransactions] = useState<
-    TransactionDate[]
+    ITransactionDate[]
   >([]);
 
   const handleFormatTrx = useCallback(() => {
@@ -55,16 +63,35 @@ function App() {
     }));
   };
 
+  const resetTrx = () => {
+    setSearch("");
+    setFilter(filterableObject);
+    setSearchedTransactions(transactionByDate);
+  };
+
   useEffect(() => {
     handleFormatTrx();
   }, [handleFormatTrx]);
 
   if (loading) {
-    return <div>Get transactions ...</div>;
+    return (
+      <Status>
+        <h3>Loading transactions...</h3>
+      </Status>
+    );
   }
 
   if (error) {
-    return <div>Unable to get transactions</div>;
+    return (
+      <Status>
+        <div>
+          <h2>Unable to get transactions</h2>
+          <div>
+            <small>Please check you server</small>
+          </div>
+        </div>
+      </Status>
+    );
   }
 
   return (
@@ -86,7 +113,7 @@ function App() {
           {filterable.map((filter) => (
             <>
               <label className="filter">
-                {filter.name}
+                <span>{filter.name}</span>
                 {(filter.type === "text" || filter.type === "number") && (
                   <input
                     type={filter.type}
@@ -96,7 +123,14 @@ function App() {
                   />
                 )}
                 {filter.type === "select" && (
-                  <select name={filter.key} onChange={handleFilterChange}>
+                  <select
+                    name={filter.key}
+                    value={filters[filter.key]}
+                    onChange={handleFilterChange}
+                  >
+                    <option value="--" defaultChecked>
+                      ---
+                    </option>
                     {filter.options?.map((value) => (
                       <option value={value.value}>{value.title}</option>
                     ))}
@@ -107,14 +141,21 @@ function App() {
           ))}
         </div>
         <div className="filter-action">
+          <button onClick={resetTrx}>Reset</button>
           <button onClick={filterTrx}>Filter</button>
         </div>
       </div>
       <div className="transaction-list">
         {searchedTransactions.map((transactionObj) => (
           <div key={transactionObj.date} className="transaction-container">
-            <div className="transaction-date">
-              {new Date(transactionObj.date).toLocaleDateString()}
+            <div className="transaction-date-wrapper">
+              <span className="transaction-date-date">
+                {" "}
+                {new Date(transactionObj.date).toDateString()}
+              </span>
+              <span className="transaction-date-count">
+                {transactionObj.transactions.length}
+              </span>
             </div>
             <div className="transaction-group">
               {transactionObj.transactions.length === 0 ? (
@@ -122,24 +163,7 @@ function App() {
               ) : (
                 <>
                   {transactionObj.transactions.map((trx) => (
-                    <div key={trx.id} className="transaction">
-                      <div className="transaction-type"></div>
-                      <div className="transaction-details">
-                        <div className="transaction-info">
-                          <span className="ti-user-name">
-                            {trx.accountName}
-                          </span>
-                          <span className="ti-amount">{trx.amount}</span>
-                        </div>
-                        <div>
-                          <p>{trx.transferTo}</p>
-                          <p>{trx.accountNumber}</p>
-                          <p>{trx.email}</p>
-                          <p>{trx.gender}</p>
-                          <p>{trx.description}</p>
-                        </div>
-                      </div>
-                    </div>
+                    <Transaction key={trx.id} trx={trx} />
                   ))}
                 </>
               )}

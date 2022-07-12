@@ -32,47 +32,83 @@
   padding: 10px 0;
 }
 
-.filters-container .filter {
-  margin-right: 40px;
-}
-
-.transaction-list {
-  margin-top: 20px;
-}
-
-.transaction-container {
-}
-
-.transaction-date {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.transaction-group {
-  width: 100%;
-}
-
-.transaction {
+.filters-container .filters-wrapper {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
 }
 
-.transaction-type {
-  width: 25px;
-  height: 25px;
-  margin-right: 25px;
+.filters-container .filters-wrapper .filter {
+  display: flex;
+  flex-direction: column;
 }
 
-.transaction-details {
+.filters-container .filters-wrapper .filter span {
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: gray;
+}
+
+.filters-container .filters-wrapper .filter input,
+.filters-container .filters-wrapper .filter select {
+  display: block;
   width: 100%;
+  border: 1px solid #222;
+  font-size: 14px;
+  padding: 3px 5px;
 }
 
-.transaction-info {
+.filters-container .filter-action {
+  width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filters-container .filter-action button {
+  display: block;
+  border: 2px solid black;
+  background: black;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.filters-container .filter {
+  margin-right: 40px;
+}
+
+.transaction-list {
+  margin-top: 2rem;
+}
+
+.transaction-container {
+  margin-bottom: 4rem;
+}
+
+.transaction-date-wrapper {
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
+}
+
+.transaction-date-wrapper .transaction-date-date {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.transaction-date-wrapper .transaction-date-count {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.transaction-group {
   width: 100%;
 }

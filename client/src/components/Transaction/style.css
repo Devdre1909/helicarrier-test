@@ -1,0 +1,79 @@
+.transaction {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem 1.8rem;
+  background-color: #eee;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+}
+
+.transaction--debit {
+  background-color: rgb(255, 241, 241);
+}
+
+.transaction--credit {
+  background-color: rgb(243, 255, 242);
+}
+
+.transaction-type {
+  width: 45px;
+  height: 45px;
+  margin-right: 25px;
+}
+
+.transaction-details {
+  width: 100%;
+}
+
+.transaction-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.ti-user-name {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.ti-amount {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.transaction-type {
+  margin-right: 1.8rem;
+}
+
+.trx-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+
+.trx-status--credit {
+  background-color: rgb(77, 207, 77);
+}
+
+.trx-status--debit {
+  background-color: rgb(207, 77, 77);
+}
+
+
+.transaction-other-info {
+  color: gray;
+}
+
+.transaction-other-info p {
+  margin-bottom: 0.5rem;
+}

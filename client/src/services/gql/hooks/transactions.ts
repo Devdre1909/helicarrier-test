@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { Transaction } from "../../../interfaces/Transaction";
+import { ITransaction } from "../../../interfaces/Transaction";
 
 const GET_TRANSACTIONS = gql`
   query GetTransactions {
@@ -20,7 +20,7 @@ const GET_TRANSACTIONS = gql`
 `;
 
 export const useGetTransactions = (): {
-  transactions: Transaction[];
+  transactions: ITransaction[];
   loading: boolean;
   error: object | undefined;
 } => {

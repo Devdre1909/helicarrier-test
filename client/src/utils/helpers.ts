@@ -1,8 +1,8 @@
-import { Transaction, TransactionDate } from "../interfaces/Transaction";
+import { ITransaction, ITransactionDate } from "../interfaces/Transaction";
 
-export function formatTrx(transactions: Transaction[]): TransactionDate[] {
+export function formatTrx(transactions: ITransaction[]): ITransactionDate[] {
   if (transactions && transactions.length > 0) {
-    const groupBy: TransactionDate[] = [];
+    const groupBy: ITransactionDate[] = [];
 
     transactions.forEach((transaction) => {
       const date = transaction.transactionOn.split("T")[0];
@@ -27,18 +27,18 @@ export function formatTrx(transactions: Transaction[]): TransactionDate[] {
 }
 
 export function searchTransactions(
-  transactions: TransactionDate[],
+  transactions: ITransactionDate[],
   searchIn: string[],
   searchKeyword?: string
-): TransactionDate[] {
+): ITransactionDate[] {
   if (searchIn.length === 0 || !searchKeyword) return transactions;
 
-  const trxCopy: TransactionDate[] = JSON.parse(JSON.stringify(transactions));
+  const trxCopy: ITransactionDate[] = JSON.parse(JSON.stringify(transactions));
 
   trxCopy.forEach((trx) => {
-    trx.transactions = trx.transactions.filter((tx) => {
+    trx.transactions = trx.transactions.filter((tx: ITransaction) => {
       return searchIn.some((key) => {
-        return tx[key as keyof Transaction]
+        return tx[key as keyof ITransaction]
           .toString()
           .toLowerCase()
           .includes(searchKeyword.toLowerCase());
@@ -49,22 +49,21 @@ export function searchTransactions(
   return trxCopy;
 }
 
-
 export function filterTransactions(
-  transactions: TransactionDate[],
-  filters: any,
-): TransactionDate[] {
+  transactions: ITransactionDate[],
+  filters: any
+): ITransactionDate[] {
   if (!filters) return transactions;
 
-  const trxCopy: TransactionDate[] = JSON.parse(JSON.stringify(transactions));
+  const trxCopy: ITransactionDate[] = JSON.parse(JSON.stringify(transactions));
 
   trxCopy.forEach((trx) => {
-    trx.transactions = trx.transactions.filter((tx) => {
-      return Object.keys(filters).every((key) => {
-        return tx[key as keyof Transaction]
-          .toString()
-          .toLowerCase()
-          .includes(filters[key].toLowerCase());
+    trx.transactions = trx.transactions.filter((tx: ITransaction) => {
+      return Object.keys(filters).some((key) => {
+        return (
+          tx[key as keyof ITransaction].toString().toLowerCase() ===
+          filters[key].toLowerCase()
+        );
       });
     });
   });

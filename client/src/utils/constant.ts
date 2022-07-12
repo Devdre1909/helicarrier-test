@@ -6,15 +6,11 @@ export const searchable = [
   "descriptions",
   "transactionOn",
   "email",
+  "gender",
   "accountNumber",
 ];
 
 export const filterable = [
-  {
-    name: "Amount",
-    key: "amount",
-    type: "text",
-  },
   {
     name: "Account Number",
     key: "accountNumber",
@@ -37,6 +33,21 @@ export const filterable = [
       {
         title: "Female",
         value: "female",
+      },
+    ],
+  },
+  {
+    name: "Type",
+    key: "type",
+    type: "select",
+    options: [
+      {
+        title: "Credit",
+        value: "credit",
+      },
+      {
+        title: "Debit",
+        value: "debit",
       },
     ],
   },

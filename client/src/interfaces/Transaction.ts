@@ -1,4 +1,9 @@
-export interface Transaction {
+enum Type {
+  Credit = "credit",
+  Debit = "debit",
+}
+
+export interface ITransaction {
   id: string;
   guid: string;
   status: boolean;
@@ -10,10 +15,11 @@ export interface Transaction {
   phone: string;
   accountNumber: string;
   email: string;
+  type: Type;
   gender: string;
 }
 
-export interface TransactionDate {
+export interface ITransactionDate {
   date: string;
-  transactions: Array<Transaction>;
+  transactions: Array<ITransaction>;
 }

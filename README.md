@@ -1,6 +1,6 @@
 # Helicarrier: Engineering Test
 
-This is the solution to the given Engineering test, the project contains two parts, the [gql-server](gql-server) to acts as a server for the client side, it uses [json-graphql-server](https://www.npmjs.com/package/json-graphql-server). I choose to use this because other free solutions I could get online doesn't allow me use my data of choice.
+This is the solution to the given Engineering test, the project contains two parts, the [gql-server](gql-server) to act as a server for the client side, it uses [json-graphql-server](https://www.npmjs.com/package/json-graphql-server). I chose to use this because other free solutions I could get online don't allow me use my data of choice.
 
 The other part is the [client](client/) folder that contains a react-ts app created with [vite](https://vitejs.dev/).
 
@@ -35,12 +35,12 @@ I used [JSON generator](https://json-generator.com/) to generate the data with t
   }
 ]
 ```
-then used [this script](gql-server/script.js) to format, i fell it make sense that `accountName` and `accountNumber` etc are same across transactions, also the `transactionOn` is a week range.
+then used [this script](gql-server/script.js) to format, I felt it made sense that `accountName` and `accountNumber` etc are same across transactions, also the `transactionOn` is a week range.
 
 
 ## Decisions
 
-Following the scenario given of a page of transactions history is used this data structure below because it's make the app more usable, `status` wasn't very usable has it has no context to the data.
+Following the scenario given, a page of transaction history uses the data structure below because it makes the app more usable, `status` wasn't very usable as it has no context to the data.
 
 ```js
 export interface Transaction {
@@ -59,8 +59,8 @@ export interface Transaction {
 }
 ```
 
-The data given from the graphql server is an array to transaction, then the data was formatted and grouped by date and transactions.
+The data given from the graphql server is an array of transactions, then the data was formatted and grouped by date.
 
-To make the search easy extensible, [data in constant](client/src/utils/constant.ts) where created to choose what can be searched through. E.g If the data changes to include `transactionMadeWith` which determines if it was Transfer or Card transaction, it every easy it make in searchable by adding it to the `searchable` export.
+To make the search easily extensible, [data in constant](client/src/utils/constant.ts) was created to choose what can be searched through. E.g If the data changes to include `transactionMadeWith` which determines if the transaction was made by transfer or card, it becomes very easy to make it searchable by adding it to the `searchable` export.
 
-Same concepts works for the filters but filter can talk options and the type of input to be rendered, that why more filters can be added with needing to touch the code.
+Same concepts works for the filters but a filter can take options and the type of input to be rendered, that way more filters can be added without needing to touch the code.
